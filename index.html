@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDENT MANAGEMENT SYSTEM</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <h1>Welcome Student Management System, Selahattin!</h1>
+    <div class="container">
+
+        <div class="add-course-and-student">
+            <div class="add-course">
+                <h2>Add New Course</h2>
+                <label>Course name:</label>
+                <input type="text" id="new-course"><br>
+                <label>Course scale:</label>
+                <select id="course-scale">
+                    <option value="10">10</option>
+                    <option value="7">7</option>
+                </select>
+                <button id="add-course-button">Add Course</button>
+            </div>
+
+            <div class="add-student">
+                <h2>Add New Student</h2>
+                <form>
+                    <label>First name :</label>
+                    <input type="text" id="first-name"><br>
+                    <label>Last name   :</label>
+                    <input type="text" id="last-name"><br>
+                    <label>Course name:</label>
+                    <select id="course-name"></select><br>
+                    <label>Midterm Grade:</label>
+                    <input type="number" id="midterm-grade" max="100" min="0"><br>
+                    <label>Final Grade:</label>
+                    <input type="number" id="final-grade" max="100" min="0"><br>
+
+                </form>
+                <button id="add-student-button">Add Student</button>
+            </div>
+        </div>
+
+
+
+
+        <div class="show-students">
+
+            <h2>Show Students</h2>
+            <button id="show-students-button">Show All Students</button><br>
+            <label>Current Courses:</label>
+            <select id="filtered-courses"></select>
+            <button id="find-by-course-button">Find by Lecture</button><br>
+            <button id="show-lecture-details-button">View Lecture Details</button>
+            <button id="show-passed-students-button">Passed Students</button>
+            <button id="show-failed-students-button">Failed Students</button>
+
+            <div id="student-items"></div>
+
+        </div>
+
+        <div class="search-student">
+
+            <h2>Search Student</h2>
+            <label>Student Name:</label>
+            <input type="text" id="find-student-input"><br>
+            <button id="find-student-button">Find Student</button>
+            <div id="find-student"></div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

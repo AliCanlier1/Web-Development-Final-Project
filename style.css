@@ -1,0 +1,66 @@
+body{
+    margin:1%;
+}
+
+h1{
+    font-size: 3em;
+    background-color: gainsboro;
+    text-align: center;
+}
+.container{
+    display: flex;
+    height: max-content;
+    justify-content: space-between;
+}
+
+.add-course-and-student, .show-students, .search-student{
+    flex:1;
+    padding: 1%;
+    border: 11px solid cadetblue;
+}
+
+h2{
+    margin-top: 0%;
+    margin-bottom: 5%;
+    text-align: center;
+    font-size: 2em;
+}
+
+.student-item{
+    background-color: aquamarine;
+    border: 2px dotted black;
+    border-radius: 10px;
+    font-size: large;
+    padding: 3%;
+    margin-top: 2%;
+}
+
+.found-student-item{
+    background-color: red;
+    border: 2px dotted black;
+    border-radius: 10px;
+    font-size: large;
+    padding: 3%;
+    margin-top: 2%;
+
+}
+
+.add-course-and-student{
+    display: flex;
+    flex-direction: column;
+}
+
+.add-course, .add-student{
+    border: 2px dotted deepskyblue;
+    border-radius: 10%;
+    padding: 4%;
+
+}
+ 
+.add-student{
+    margin-top: 2%;
+}
+
+#show-passed-students-button, #show-failed-students-button, #find-by-course-button{
+    margin-left: 2.5%;
+}

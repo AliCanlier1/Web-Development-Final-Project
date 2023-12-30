@@ -1,3 +1,4 @@
+//Firsly I took all buttons to write button event handlers.
 const addCourseButton = document.getElementById("add-course-button");
 const addStudentButton = document.getElementById("add-student-button");
 const showStudentsButton = document.getElementById("show-students-button");
@@ -7,6 +8,7 @@ const showPassedStudentsButton = document.getElementById("show-passed-students-b
 const showFailedStudentsButton = document.getElementById("show-failed-students-button");
 const showLectureDetailsButton = document.getElementById("show-lecture-details-button");
 
+//These are the button event handlers that I have specified above.
 addCourseButton.addEventListener("click", addNewCourse);
 addStudentButton.addEventListener("click", addNewStudent);
 showStudentsButton.addEventListener("click", showStudents);
@@ -16,9 +18,13 @@ showPassedStudentsButton.addEventListener("click", showPassedStudents);
 showFailedStudentsButton.addEventListener("click", showFailedStudents);
 showLectureDetailsButton.addEventListener("click", showLectureDetails);
 
+//I setted two id values of each course and student which has been added by user.
+//Each course and student adding function will use this variables and then icrements itself.
 let courseID = 1;
 let studentID = 1;
 
+//I created a student class for each student. Input fields are clearing itself after creating student.
+//Letter grade will be calculated according to course has been entered to the student in the addNewStudent function.
 class Student {
   constructor() {
     this._courses = [];
@@ -40,6 +46,9 @@ class Student {
   }
 }
 
+
+//This function adding and student and calculating course grade according to selected course.
+//The last line of the function is showing the students.
 function addNewStudent() {
   let student = new Student();
   let letterScale;
@@ -72,6 +81,9 @@ function addNewStudent() {
   }
 }
 
+//This function adding a new course according to input fields.
+//When the page loaded first time the input fields of courses has 0 course.
+//After inserting a course with this function the input fileds of courses are reloading and updating itselfs.
 function addNewCourse() {
   let courseName = document.getElementById("new-course").value;
   let courseScale = document.getElementById("course-scale").value;
@@ -85,6 +97,8 @@ function addNewCourse() {
   loadCourses();
   loadFilteredCourses();
 }
+
+//This function is showing the students according to the specific course which is selected by the user.
 function findByLecture() {
   let studentsList = document.getElementById("student-items");
   studentsList.innerHTML = "";
@@ -110,6 +124,10 @@ function findByLecture() {
     }
   }
 }
+
+//This function is running with findByLecture(above) function. 
+//After loading students according to specific course this function is looking each students letterGrades and 
+//showing students whose letter grades higher than "F".
 function showPassedStudents() {
   let studentsList = document.getElementById("student-items");
   studentsList.innerHTML = "";
@@ -139,6 +157,9 @@ function showPassedStudents() {
   }
 }
 
+//This function is running with findByLecture function. 
+//After loading students according to specific course this function is looking each students letterGrades and 
+//showing students whose letter grades equals the "F".
 function showFailedStudents() {
   let studentsList = document.getElementById("student-items");
   studentsList.innerHTML = "";
@@ -167,6 +188,9 @@ function showFailedStudents() {
     }
   }
 }
+
+//This function is writing the number of students are passed or failed to the specific course.
+//This function is also running with findByLecture function.
 function showLectureDetails() {
   let lectureDetail = document.getElementById("student-items");
   lectureDetail.innerHTML = "";
@@ -194,6 +218,11 @@ function showLectureDetails() {
   lectureInformationDiv.textContent = `Passed Students: ${passedStudents}, Failed Students: ${failedStudents}, Mean Value:`;
   lectureDetail.appendChild(lectureInformationDiv);
 }
+
+
+//Load courses function is creating an options for all required course input fields.
+//First taking the course name and course scale from the user and then adds the values to the localStorage.
+//Other functions are using this function.
 function loadCourses() {
   let courses = document.getElementById("course-name");
   courses.innerHTML = "";
@@ -208,6 +237,9 @@ function loadCourses() {
     }
   }
 }
+
+//This function is almost same the loadCourses()(above) function.
+//The only difference is this function is taking "filtered-courses" select fields as a root.
 function loadFilteredCourses() {
   let filteredCourses = document.getElementById("filtered-courses");
   filteredCourses.innerHTML = "";
@@ -223,6 +255,9 @@ function loadFilteredCourses() {
   }
 }
 
+//This function is used for showing students.
+//Iterating all the localStorage items and taking the items which is student object.
+//After that creating a div element and appending the element to the "student-items" div.
 function showStudents() {
   let studentsList = document.getElementById("student-items");
   studentsList.innerHTML = "";
@@ -245,6 +280,8 @@ function showStudents() {
   }
 }
 
+//This function will find out the student according the values that has been entered by the user.
+//After that append this student's information to the find-student root.
 function findStudent() {
   let descendantItem = document.getElementById("find-student");
   descendantItem.innerHTML = "";
@@ -274,6 +311,7 @@ function findStudent() {
   }
 }
 
+//This function is taking two parameter and calculating the letterGrade according to the 10 based system.
 function calculate10(midterm, final) {
   let value = (parseInt(midterm) * 2) / 5 + (parseInt(final) * 3) / 5;
   let letter;
@@ -292,6 +330,7 @@ function calculate10(midterm, final) {
   return letter;
 }
 
+//This function is taking two parameter and calculating the letterGrade according to the 7 based system.
 function calculate7(midterm, final) {
   let value = (parseInt(midterm) * 2) / 5 + (parseInt(final) * 3) / 5;
   let letter;

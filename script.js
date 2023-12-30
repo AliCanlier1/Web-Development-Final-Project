@@ -18,7 +18,7 @@ showPassedStudentsButton.addEventListener("click", showPassedStudents);
 showFailedStudentsButton.addEventListener("click", showFailedStudents);
 showLectureDetailsButton.addEventListener("click", showLectureDetails);
 
-//I setted two id values of each course and student which has been added by user.
+//I setted two id values of each course and student which is added by user.
 //Each course and student adding function will use this variables and then icrements itself.
 let courseID = 1;
 let studentID = 1;

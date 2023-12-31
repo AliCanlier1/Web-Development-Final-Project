@@ -40,12 +40,19 @@ class Student {
     document.getElementById("final-grade").value = "";
     this.pushCourses();
   }
-  pushCourses() {
-    let courseObj = { courseName: this.course, letterGrade: {} };
+  pushCourses(course, midterm, final) {
+    course = this.course;
+    midterm = this.midtermGrade;
+    final = this.finalGrade;
+    let courseObj = {
+      courseName: course,
+      letterGrade: {},
+      midtermGrade: midterm,
+      finalGrade: final,
+    };
     this._courses.unshift(courseObj);
   }
 }
-
 
 //This function adding and student and calculating course grade according to selected course.
 //The last line of the function is showing the students.
@@ -58,7 +65,7 @@ function addNewStudent() {
     student.finalGrade > 100 ||
     student.midtermGrade < 0
   ) {
-    alert("CHECK YOUR GRADES!");
+    alert("Check your exam grades!");
   } else {
     for (let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i);
@@ -74,10 +81,33 @@ function addNewStudent() {
         }
       }
     }
+    for (let j = 0; j < localStorage.length; j++) {
+      if ((student.name + student.lastName).toLowerCase() === localStorage.key(j)) {
+        let currentStudent = JSON.parse(
+          localStorage.getItem(student.name + student.lastName)
+        );
+        let courseObj = {
+          courseName: student.course,
+          letterGrade: letterScale,
+          midtermGrade: student.midtermGrade,
+          finalGrade: student.finalGrade,
+        };
+        currentStudent._courses.push(courseObj);
+        localStorage.removeItem(student.name + student.lastName);
+        localStorage.setItem(
+          (student.name + student.lastName).toLowerCase(),
+          JSON.stringify(currentStudent)
+        );
+        return showStudents();
+      }
+    }
     let currentCourse = student._courses[0];
     currentCourse.letterGrade = letterScale;
-    localStorage.setItem(studentID, JSON.stringify(student));
-    showStudents();
+    localStorage.setItem(
+      (student.name + student.lastName).toLowerCase(),
+      JSON.stringify(student)
+    );
+    return showStudents();
   }
 }
 
@@ -125,8 +155,8 @@ function findByLecture() {
   }
 }
 
-//This function is running with findByLecture(above) function. 
-//After loading students according to specific course this function is looking each students letterGrades and 
+//This function is running with findByLecture(above) function.
+//After loading students according to specific course this function is looking each students letterGrades and
 //showing students whose letter grades higher than "F".
 function showPassedStudents() {
   let studentsList = document.getElementById("student-items");
@@ -157,8 +187,8 @@ function showPassedStudents() {
   }
 }
 
-//This function is running with findByLecture function. 
-//After loading students according to specific course this function is looking each students letterGrades and 
+//This function is running with findByLecture function.
+//After loading students according to specific course this function is looking each students letterGrades and
 //showing students whose letter grades equals the "F".
 function showFailedStudents() {
   let studentsList = document.getElementById("student-items");
@@ -207,7 +237,7 @@ function showLectureDetails() {
           student._courses[i].letterGrade === "F"
         ) {
           failedStudents += 1;
-        } else if(student._courses[i].courseName === courseValue){
+        } else if (student._courses[i].courseName === courseValue) {
           passedStudents += 1;
         }
       }
@@ -218,7 +248,6 @@ function showLectureDetails() {
   lectureInformationDiv.textContent = `Passed Students: ${passedStudents}, Failed Students: ${failedStudents}, Mean Value:`;
   lectureDetail.appendChild(lectureInformationDiv);
 }
-
 
 //Load courses function is creating an options for all required course input fields.
 //First taking the course name and course scale from the user and then adds the values to the localStorage.
@@ -267,19 +296,23 @@ function showStudents() {
       let student = JSON.parse(localStorage.getItem(key));
       const studentInformationDiv = document.createElement("div");
       studentInformationDiv.classList.add("student-item");
-      let studentCourses = student._courses.map(
-        (course) => `${course.courseName}: ${course.letterGrade}`
-      );
+      let studentCourses = student._courses
+        .map(
+          (
+            course
+          ) => `Name: ${course.courseName}, Letter Grade: ${course.letterGrade},
+        Midterm: ${course.midtermGrade}, Final:${course.finalGrade}`
+        )
+        .join(", ");
       studentInformationDiv.textContent = `Name: ${
         student.name + " " + student.lastName
-      }, Courses: ${studentCourses.join(", ")}, Midterm Grade: ${
-        student.midtermGrade
-      }, Final Grade: ${student.finalGrade}`;
+      }, 
+      Courses List: 
+      ${studentCourses}`;
       studentsList.appendChild(studentInformationDiv);
     }
   }
 }
-
 //This function will find out the student according the values that has been entered by the user.
 //After that append this student's information to the find-student root.
 function findStudent() {
@@ -297,18 +330,24 @@ function findStudent() {
       ) {
         const studentInformationDiv = document.createElement("div");
         studentInformationDiv.classList.add("found-student-item");
-        let studentCourses = student._courses.map(
-          (course) => `${course.courseName}: ${course.letterGrade}`
-        );
+        let studentCourses = student._courses
+          .map(
+            (
+              course
+            ) => `Name: ${course.courseName}, Letter Grade: ${course.letterGrade},
+        Midterm: ${course.midtermGrade}, Final:${course.finalGrade}`
+          )
+          .join(", ");
         studentInformationDiv.textContent = `Name: ${
           student.name + " " + student.lastName
-        }, Courses: ${studentCourses.join(", ")}, Midterm Grade: ${
-          student.midtermGrade
-        }, Final Grade :${student.finalGrade}`;
+        }, Course List: ${studentCourses}`;
         descendantItem.appendChild(studentInformationDiv);
+        return;
       }
+
     }
   }
+  return alert("The student that you have types has not mached with anyone!");
 }
 
 //This function is taking two parameter and calculating the letterGrade according to the 10 based system.

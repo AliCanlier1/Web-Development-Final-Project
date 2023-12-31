@@ -147,8 +147,8 @@ function findByLecture() {
             student.name + " " + student.lastName
           }, Course: ${student._courses[i].courseName}, LetterGrade: ${
             student._courses[i].letterGrade
-          }, Midterm Grade: ${student.midtermGrade}, Final Grade: ${
-            student.finalGrade
+          }, Midterm Grade: ${student._courses[i].midtermGrade}, Final Grade: ${
+            student._courses[i].finalGrade
           }`;
           studentsList.appendChild(studentInformationDiv);
         }
@@ -179,8 +179,8 @@ function showPassedStudents() {
             student.name + " " + student.lastName
           }, Course: ${student._courses[i].courseName}, LetterGrade: ${
             student._courses[i].letterGrade
-          }, Midterm Grade: ${student.midtermGrade}, Final Grade: ${
-            student.finalGrade
+          }, Midterm Grade: ${student._courses[i].midtermGrade}, Final Grade: ${
+            student._courses[i].finalGrade
           }`;
           studentsList.appendChild(studentInformationDiv);
         }
@@ -211,8 +211,8 @@ function showFailedStudents() {
             student.name + " " + student.lastName
           }, Course: ${student._courses[i].courseName}, LetterGrade: ${
             student._courses[i].letterGrade
-          }, Midterm Grade: ${student.midtermGrade}, Final Grade: ${
-            student.finalGrade
+          }, Midterm Grade: ${student._courses[i].midtermGrade}, Final Grade: ${
+            student._courses[i].finalGrade
           }`;
           studentsList.appendChild(studentInformationDiv);
         }

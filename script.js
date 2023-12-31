@@ -63,7 +63,7 @@ function addNewStudent() {
     student.midtermGrade > 100 ||
     student.midtermGrade < 0 ||
     student.finalGrade > 100 ||
-    student.midtermGrade < 0
+    student.finalGrade < 0
   ) {
     alert("Check your exam grades!");
   } else {

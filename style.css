@@ -1,32 +1,53 @@
-body{
-    margin:1%;
+body {
+    margin: 1%;
 }
 
-h1{
+h1 {
     font-size: 2em;
     background-color: gainsboro;
     text-align: center;
 }
-.container{
+
+.container {
     display: flex;
     height: max-content;
     justify-content: space-between;
 }
 
-.add-course-and-student, .show-students, .search-student{
-    flex:1;
+.add-course-and-student, .show-students, .search-student {
+    flex: 1;
     padding: 1%;
-    border: 11px solid cadetblue;
+    border: 11px solid royalblue;
 }
 
-h2{
+.add-course-and-student {
+    background-color: beige;
+    border-top-left-radius: 4%;
+    border-bottom-left-radius: 4%;
+
+}
+
+.show-students {
+    background-color: floralwhite;
+    border-left: 0;
+
+}
+
+.search-student {
+    background-color: lavender;
+    border-left: 0;
+    border-top-right-radius: 4%;
+    border-bottom-right-radius: 4%;
+}
+
+h2 {
     margin-top: 0%;
     margin-bottom: 5%;
     text-align: center;
     font-size: 2em;
 }
 
-.student-item{
+.student-item {
     background-color: aquamarine;
     border: 2px dotted black;
     border-radius: 10px;
@@ -35,9 +56,9 @@ h2{
     margin-top: 2%;
 }
 
-.found-student-item{
-    background-color: red;
-    border: 2px dotted black;
+.found-student-item {
+    background-color: plum;
+    border: 2px dashed black;
     border-radius: 10px;
     font-size: large;
     padding: 3%;
@@ -45,22 +66,27 @@ h2{
 
 }
 
-.add-course-and-student{
+.add-course-and-student {
     display: flex;
     flex-direction: column;
 }
 
-.add-course, .add-student{
-    border: 2px dotted deepskyblue;
-    border-radius: 10%;
+.add-course, .add-student {
+    border: 2px solid deepskyblue;
+    border-radius: 7.5%;
     padding: 4%;
 
 }
- 
-.add-student{
+
+.add-student {
     margin-top: 2%;
 }
 
-#show-passed-students-button, #show-failed-students-button, #find-by-course-button{
+#show-passed-students-button, #show-failed-students-button, #find-by-course-button {
     margin-left: 2.5%;
+}
+
+.find-student {
+    display: flex;
+    flex-direction: column;
 }

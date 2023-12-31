@@ -82,7 +82,9 @@ function addNewStudent() {
       }
     }
     for (let j = 0; j < localStorage.length; j++) {
-      if ((student.name + student.lastName).toLowerCase() === localStorage.key(j)) {
+      if (
+        (student.name + student.lastName).toLowerCase() === localStorage.key(j)
+      ) {
         let currentStudent = JSON.parse(
           localStorage.getItem(student.name + student.lastName)
         );
@@ -245,7 +247,7 @@ function showLectureDetails() {
   }
   const lectureInformationDiv = document.createElement("div");
   lectureInformationDiv.classList.add("student-item");
-  lectureInformationDiv.textContent = `Passed Students: ${passedStudents}, Failed Students: ${failedStudents}, Mean Value:`;
+  lectureInformationDiv.textContent = `Passed Students: ${passedStudents}, Failed Students: ${failedStudents}`;
   lectureDetail.appendChild(lectureInformationDiv);
 }
 
@@ -300,14 +302,12 @@ function showStudents() {
         .map(
           (
             course
-          ) => `Name: ${course.courseName}, Letter Grade: ${course.letterGrade},
-        Midterm: ${course.midtermGrade}, Final:${course.finalGrade}`
+          ) => `Name: ${course.courseName}, Letter: ${course.letterGrade},
+        Midterm: ${course.midtermGrade}, Final:${course.finalGrade}<br>`
         )
-        .join(", ");
-      studentInformationDiv.textContent = `Name: ${
-        student.name + " " + student.lastName
-      }, 
-      Courses List: 
+        .join("");
+      studentInformationDiv.innerHTML = `Student Name: ${student.name} Lastname: ${student.lastName}<br>
+      Courses List:<br>
       ${studentCourses}`;
       studentsList.appendChild(studentInformationDiv);
     }
@@ -315,6 +315,8 @@ function showStudents() {
 }
 //This function will find out the student according the values that has been entered by the user.
 //After that append this student's information to the find-student root.
+//This function also contains the calculateGPA button.
+//This button is used for calculate gpa of found student.
 function findStudent() {
   let descendantItem = document.getElementById("find-student");
   descendantItem.innerHTML = "";
@@ -332,22 +334,65 @@ function findStudent() {
         studentInformationDiv.classList.add("found-student-item");
         let studentCourses = student._courses
           .map(
-            (
-              course
-            ) => `Name: ${course.courseName}, Letter Grade: ${course.letterGrade},
-        Midterm: ${course.midtermGrade}, Final:${course.finalGrade}`
+            (course) =>
+              `Name: ${course.courseName}, Letter Grade: ${course.letterGrade}<br>`
           )
-          .join(", ");
-        studentInformationDiv.textContent = `Name: ${
-          student.name + " " + student.lastName
-        }, Course List: ${studentCourses}`;
+          .join(" ");
+        studentInformationDiv.innerHTML = `Student Name: ${student.name} Lastname: ${student.lastName}<br>
+        Courses List:<br>
+        ${studentCourses}`;
         descendantItem.appendChild(studentInformationDiv);
+        const calculateGPAButton = document.createElement("button");
+        calculateGPAButton.addEventListener("click", function () {
+          let totalGPAValue = calculateGPA(student._courses).toFixed(2);
+          let totalGPA = document.createElement("div");
+          totalGPA.textContent = `${
+            student.name + " " + student.lastName + "'s"
+          } GPA is: ${totalGPAValue}`;
+          totalGPA.classList.add("student-item");
+          totalGPA.style.backgroundColor = "lemonchiffon";
+          totalGPA.style.border = "solid";
+          descendantItem.appendChild(totalGPA);
+        });
+        calculateGPAButton.style.id = "calculateGPAButton";
+        calculateGPAButton.style.width = "42%";
+        calculateGPAButton.style.maxHeight = "25%";
+        calculateGPAButton.style.margin = "3%";
+        calculateGPAButton.innerText = "Calculate GPA";
+        descendantItem.appendChild(calculateGPAButton);
         return;
       }
-
     }
   }
   return alert("The student that you have types has not mached with anyone!");
+}
+
+//This function is used for calculateGPA according to the letterGrade of student.
+//Above function(findStudent) is using this function for calculation.
+function calculateGPA(courses) {
+  let counter = 0;
+  let courseGrade = 0;
+  for (let i = 0; i < courses.length; i++) {
+    if (courses[i].letterGrade === "A") {
+      courseGrade += 4;
+      counter++;
+    } else if (courses[i].letterGrade === "B") {
+      courseGrade += 3;
+      counter++;
+    } else if (courses[i].letterGrade === "C") {
+      courseGrade += 2;
+      counter++;
+    } else if (courses[i].letterGrade === "D") {
+      courseGrade += 1;
+      counter++;
+    } else if (courses[i].letterGrade === "F") {
+      counter++;
+    }
+  }
+  if (counter === 0) {
+    return 0;
+  }
+  return courseGrade / counter;
 }
 
 //This function is taking two parameter and calculating the letterGrade according to the 10 based system.
